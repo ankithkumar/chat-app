@@ -7,15 +7,49 @@ var corsOptions = {
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
-db_conn.user.addUser({
-  email: 'abc@123',
-  pwd: 'abc@1234'
-});
-db_conn.chat.getMessageBetWeen();
-// app.get('/', cors(corsOptions), function (req, res, next) {
-//   res.json({msg: 'This is CORS-enabled for all'})
-// })
+app.use(cors(corsOptions));
+// parse requests of content-type - application/json
+app.use(express.json());
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
 
-// app.listen(80, function () {
-//   console.log('CORS-enabled web server listening on port 80')
-// })
+
+app.get('/', function(req, res, next) {
+  res.json({ message: "Welcome to chat app." });
+});
+
+app.post('/login', async function (req, res, next) {
+  console.log(req.body);
+  const user = {
+    email: req.body.email,
+    pwd: req.body.pwd
+  }
+  const isUserPresent = await db_conn.user.isUserPresent(user);
+  if (isUserPresent) {
+    res.sendStatus(200);
+  } else {
+    res.send({
+      msg: 'no user'
+    })
+  }
+})
+
+app.post('/signup', async function (req, res, next) {
+  const user = {
+    email: req.body.email,
+    pwd: req.body.pwd
+  }
+  const isUserPresent = await db_conn.user.isUserPresent(user);
+  if (isUserPresent) {
+    res.json({
+      msg: 'user already exists'
+    });
+    return;
+  }
+  await db_conn.user.addUser(user);
+  res.sendStatus(200);
+})
+
+app.listen(80, function () {
+  console.log('CORS-enabled web server listening on port 80')
+})
