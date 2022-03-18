@@ -18,9 +18,22 @@ app.get('/', function(req, res, next) {
   res.json({ message: "Welcome to chat app." });
 });
 
+app.get('/checkUserName', async function (req, res, next) {
+  console.log(req.query.username);
+  const isUserNameDuplicate = await db_conn.user.isUserNameDuplicate({name: req.query.username});
+  if (isUserNameDuplicate) {
+    res.send({
+      msg: 'duplicate user'
+    });
+  } else {
+    res.sendStatus(200);
+  }
+})
+
 app.post('/login', async function (req, res, next) {
   console.log(req.body);
   const user = {
+    name: req.body.name,
     email: req.body.email,
     pwd: req.body.pwd
   }
@@ -36,6 +49,7 @@ app.post('/login', async function (req, res, next) {
 
 app.post('/signup', async function (req, res, next) {
   const user = {
+    name: req.body.name,
     email: req.body.email,
     pwd: req.body.pwd
   }
@@ -50,6 +64,12 @@ app.post('/signup', async function (req, res, next) {
   res.sendStatus(200);
 })
 
+app.get('/userlist', async function (req, res, next) {
+  const userList = await db_conn.user.getUserList();
+  res.send({
+    list: userList
+  });
+});
 app.listen(80, function () {
   console.log('CORS-enabled web server listening on port 80')
 })
