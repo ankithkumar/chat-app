@@ -1,0 +1,9 @@
+.chatboxz {
+    display: inline-block;
+    height: 500px;
+    width: 60%;
+    padding-bottom:20%;
+    background-color: plum;
+    border-radius: 25px;
+    position: relative
+  }
