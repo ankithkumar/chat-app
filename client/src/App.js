@@ -1,4 +1,4 @@
-import ChatWindow from './Components/ChatWindow';
+import ChatWindow from './Screens/Chatwindow/ChatWindow';
 import './App.css';
 
 function App() {
