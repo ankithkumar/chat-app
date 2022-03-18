@@ -16,9 +16,9 @@ const InputComponent = (props) => {
     }
 
     const sendMsgs = () => {
-        debugger;
+        // debugger;
         setMsgs(message);
-        debugger;
+        // debugger;
     }
     return (
         <div>
