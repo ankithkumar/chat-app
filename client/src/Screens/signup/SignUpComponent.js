@@ -32,16 +32,6 @@ const SignUpComponent = (props) => {
     const [pwd, setPwd] = useState('');
     const [apiRes, setApiRes] = useState(false);
     console.log(props);
-    // debugger;
-    const getName = (e) => {
-        setName(e.target.value);
-    }
-    const getEmail = (e) => {
-        setEmail(e.target.value);
-    }
-    const getPwd = (e) => {
-        setPwd(e.target.value);
-    }
     const signUp = () => {
         const body = { name, email, pwd }
 
@@ -63,13 +53,13 @@ const SignUpComponent = (props) => {
                     <div style={{paddingTop:'81px'}}>
                     <form className={classes.root} noValidate autoComplete="off">
                         <label>Name</label>
-                        <TextField error={false} onChange={(e) => getName(e)} style={{top: '-18px'}} required id="standard-required" placeholder="John snow" />
+                        <TextField error={false} onChange={(e) => setName(e.target.value)} style={{top: '-18px'}} required id="standard-required" placeholder="John snow" />
                         <br/>
                         <label>Email</label>
-                        <TextField onChange={(e) => getEmail(e)} style={{top: '-18px'}} required id="standard-required" placeholder="john123@gmail.com" />
+                        <TextField onChange={(e) => setEmail(e.target.value)} style={{top: '-18px'}} required id="standard-required" placeholder="john123@gmail.com" />
                         <br/>
                         <label>Password</label>
-                        <TextField onChange={(e) => getPwd(e)} style={{top: '-18px'}} required id="standard-required" placeholder="Password" />
+                        <TextField onChange={(e) => setPwd(e.target.value)} style={{top: '-18px'}} required id="standard-required" placeholder="Password" />
                     </form>
                     </div>
                     <Button onClick={() => signUp()} variant="contained" color="primary" className="buttonW">

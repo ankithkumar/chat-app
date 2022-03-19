@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from '@material-ui/core/TextField';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
+import {apiResponse} from '../../API/Api';
 // import SignUpComponent from "./SignUpComponent";
 import Button from '@material-ui/core/Button';
+import { useHistory } from "react-router-dom";
 import {
     // BrowserRouter as Router,
     // Route,
@@ -22,9 +24,26 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const LoginComponent = () => {
+const LoginComponent = (props) => {
     const classes = useStyles();
     // debugger;
+    const history = useHistory();
+    const [email, setEmail] = useState('');
+    const [pwd, setPwd] = useState('');
+    const [apiRes, setApiRes] = useState(false);
+    console.log(props);
+    const login = () => {
+        const body = { email, pwd }
+
+        apiResponse(body, 'http://localhost/login').then((response) => {
+            // debugger;
+            if (response.msg === 'success') {
+                setApiRes(true);
+                history.push('/chat');
+            }
+        });
+    }
+
     return(
         <div className="container">
             <React.Fragment>
@@ -34,13 +53,13 @@ const LoginComponent = () => {
                     <div style={{paddingTop:'81px'}}>
                     <form className={classes.root} noValidate autoComplete="off">
                         <label>Email</label>
-                        <TextField style={{top: '-18px'}} required id="standard-required" placeholder="john123@gmail.com" />
+                        <TextField style={{top: '-18px'}} onChange={(e) => setEmail(e.target.value)} required id="standard-required" placeholder="john123@gmail.com" />
                         <br/>
                         <label>Password</label>
-                        <TextField style={{top: '-18px'}} required id="standard-required" placeholder="Password" />
+                        <TextField style={{top: '-18px'}} onChange={(e) => setPwd(e.target.value)} required id="standard-required" placeholder="Password" />
                     </form>
                     </div>
-                    <Button variant="contained" color="primary" className="buttonW">
+                    <Button variant="contained" color="primary" className="buttonW" onClick={login}>
                         Login
                     </Button>
                     <br/>
