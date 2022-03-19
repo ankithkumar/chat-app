@@ -3,7 +3,7 @@ import Navigation from './Components/navigation';
 
 function App() {
   return (
-    <div className="App">
+    <div style={{backgroundColor:'purple'}}>
       <Navigation />
     </div>
   );

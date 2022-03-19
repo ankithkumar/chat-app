@@ -1,11 +1,11 @@
-.chatboxz {
+.listBox {
     /* display: inline-block; */
     display: inline-grid;
-    height: 10vh;
-    width: 40%;
+    height: 420px;
+    width: 20%;
     padding-bottom:20%;
     background-color: plum;
+    margin-left: 19%;
     border-radius: 25px;
-    position: relative;
-    left: 30px;
+    /* position: relative */
   }
