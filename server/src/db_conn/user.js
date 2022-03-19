@@ -26,16 +26,27 @@ async function isUserPresent(userObj) {
     return res.length !== 0;
 }
 
-async function getUserList() {
+function filterBySearchKey(res, searchKey) {
+    return res.reduce((list, user) => {
+        if (user.name && user.name.includes(searchKey)) {
+            list.push(user.name)
+        }
+        return list;
+    }, []);
+}
+async function getUserList(searchKey) {
     await connection.connect();
     const client = connection.getMongoClient();
     const res = await client.db("chatApp").collection("user").find({}).sort({"name":1}).toArray();
-    const userList = [];
-    res.forEach(user => userList.push(user.name));
-    console.log(userList);
     await connection.close();
-    return userList;
+    if (!searchKey) {
+        const userList = [];
+        res.forEach(user => userList.push(user.name));
+        return userList;
+    }
+    return filterBySearchKey(res, searchKey);
 }
+
 module.exports = {
     addUser,
     isUserPresent,
