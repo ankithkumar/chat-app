@@ -1,10 +1,10 @@
-import ChatWindow from './Screens/Chatwindow/ChatWindow';
 import './App.css';
+import Navigation from './Components/navigation';
 
 function App() {
   return (
-    <div className="App">
-      <ChatWindow/>
+    <div style={{backgroundColor:'purple'}}>
+      <Navigation />
     </div>
   );
 }
