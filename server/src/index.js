@@ -26,7 +26,9 @@ app.get('/checkUserName', async function (req, res, next) {
       msg: 'duplicate user'
     });
   } else {
-    res.sendStatus(200);
+    res.send({
+      msg: 'success'
+    });
   }
 })
 
@@ -39,7 +41,9 @@ app.post('/login', async function (req, res, next) {
   }
   const isUserPresent = await db_conn.user.isUserPresent(user);
   if (isUserPresent) {
-    res.sendStatus(200);
+    res.send({
+      msg: 'success'
+    });
   } else {
     res.send({
       msg: 'no user'
@@ -61,7 +65,9 @@ app.post('/signup', async function (req, res, next) {
     return;
   }
   await db_conn.user.addUser(user);
-  res.sendStatus(200);
+  res.send({
+    msg: 'success'
+  });
 })
 
 app.get('/userlist', async function (req, res, next) {
