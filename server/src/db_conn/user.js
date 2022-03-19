@@ -47,6 +47,11 @@ async function getUserList(searchKey) {
     return filterBySearchKey(res, searchKey);
 }
 
+async function getChatUserList(username, searchKey) {
+    await connection.connect();
+    const client = connection.getMongoClient();
+}
+
 module.exports = {
     addUser,
     isUserPresent,
