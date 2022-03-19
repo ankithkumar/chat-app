@@ -9,9 +9,9 @@ import Button from '@material-ui/core/Button';
 import {
     // BrowserRouter as Router,
     // Route,
-    // Link
+    Link
   } from "react-router-dom";
-import '../Css/login.css';
+import '../../Css/login.css';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,13 +44,7 @@ const LoginComponent = () => {
                         Login
                     </Button>
                     <br/>
-                    <br/>
-                    {/* <Router>
-                    <Button variant="contained" color="primary" className="buttonW">
-                    <Link to="/signup"> SignUp</Link>
-                        <Route path="/signup" component={SignUpComponent}/>
-                    </Button>
-                    </Router> */}
+                    <div>Don't Have account? <Link to="/signup">Signup</Link></div>
                 </Typography>
             </Container>
     </React.Fragment>
