@@ -65,11 +65,12 @@ app.post('/signup', async function (req, res, next) {
 })
 
 app.get('/userlist', async function (req, res, next) {
-  const userList = await db_conn.user.getUserList();
+  const userList = await db_conn.user.getUserList(req.query.search);
   res.send({
     list: userList
   });
 });
+
 app.listen(80, function () {
   console.log('CORS-enabled web server listening on port 80')
 })
