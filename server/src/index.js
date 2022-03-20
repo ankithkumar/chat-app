@@ -9,17 +9,27 @@ var corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
-
+const port = 80;
 // creating 24 hours from milliseconds
 const oneDay = 1000 * 60 * 60 * 24;
 let session = null;
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+  next();
+});
+
+app.use(cors(corsOptions));
+
 app.use(sessions({
   secret: "thisissecretkeyforchatapp",
   saveUninitialized:true,
   cookie: { maxAge: oneDay },
   resave: false
 }));
-app.use(cors(corsOptions));
+
 // parse requests of content-type - application/json
 app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
@@ -154,6 +164,6 @@ app.get('/logout',(req,res) => {
   });
 });
 
-app.listen(80, function () {
-  console.log('CORS-enabled web server listening on port 80')
+app.listen(port, function () {
+  console.log('CORS-enabled web server listening on port ', port);
 })
