@@ -11,7 +11,7 @@ import ChatWindow from "../Screens/Chatwindow/ChatWindow";
 
 function Navigation() {
   return (
-    <div className="Navigation">
+    <div className="Navigation" style={{textAlign: 'center'}}>
       <Router>
         {
             <Switch>

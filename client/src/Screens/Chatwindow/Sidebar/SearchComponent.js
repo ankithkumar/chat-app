@@ -27,11 +27,11 @@ const SearchComponent = (props) => {
     // }
 
     return(
-        <div>
+        <div className="search">
             {/* {res} */}
             <TextField
                 onChange={(e) => debounceOnChange(e.target.value)}
-                style={{width: '20%',
+                style={{width: '70%',
                     backgroundColor: 'plum',
                     marginLeft: '19%',
                     borderRadius: '22px',

@@ -9,13 +9,13 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 
 const ListComponent = (props) => {
-    const { list } = props;
+    const { list, onChatClick } = props;
     console.log('list', list);
     return(
         <div className="listBox">
             {list.length > 0 && list.map((name) => (          
             <div>
-            <ListItem alignItems="flex-start">
+            <ListItem alignItems="flex-start" onClick={() => onChatClick(name)}>
                 <ListItemAvatar>
                     <Avatar alt={name} src="/static/images/avatar/2.jpg" />
                 </ListItemAvatar>

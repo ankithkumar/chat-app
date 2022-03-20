@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
-import InputComponent from '../../Components/Shared/InputComponent';
-import DisplayMsgs from './DisplayMsgs';
 import '../../App.css';
 import '../../Css/chatwindow.css';
 import SidebarComponent from './Sidebar/SidebarComponent';
+import ChatList from './ChatList/ChatList';
 
 const ChatWindow = () => {
-    const [displayMsg, setDisplayMsg] = useState([]);
+    const [name, setName] = useState('');
+    const [chatClick, setChatClick] = useState('');
     console.log('hi');
-    const sendMsg = (msg) => {
-        setDisplayMsg([displayMsg, ...msg]);
+    
+    const handleOnChatClick = (name) => {
+        console.log(name);
+        setName(name);
+        // debugger;
     }
-    const handleMsgs = (msg) => {
-        console.log(msg);
-    }
+
     return(
         <div>
             <div>
-                <SidebarComponent/>
+                <SidebarComponent chatClick={(name) => handleOnChatClick(name)}/>
                 <div className="App chatboxz">
-                <DisplayMsgs/>
-                <InputComponent setMsgs={() => handleMsgs(displayMsg)}/>
+                    <ChatList name={name}/>
                 </div>
             </div>
         </div>

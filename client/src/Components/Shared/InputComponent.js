@@ -11,6 +11,7 @@ const InputComponent = (props) => {
     const [message, setMessage] = useState('Type a message');
     const handleMessage = (e) => {
         console.log(e.target.value);
+        // debugger;
         const val = e.target.value;
         setMessage(val);
     }
@@ -32,12 +33,9 @@ const InputComponent = (props) => {
                         endAdornment={<InputAdornment position="end" style={{transform: 'rotate(40deg)'}}>{<AttachFileIcon/>}</InputAdornment>}
                         aria-describedby="outlined-weight-helper-text"
                         startAdornment={<InputAdornment position="start">{<SentimentSatisfiedAltIcon/>}</InputAdornment>}
-                        // inputProps={{
-                        //   'aria-label': 'weight',
-                        // }}
                     />
                 </FormControl>
-                <SendMsgs onclick={sendMsgs()}/>
+                <SendMsgs onclick={sendMsgs}/>
         </div>
     )
 }

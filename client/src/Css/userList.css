@@ -1,11 +1,18 @@
 .listBox {
     /* display: inline-block; */
-    display: inline-grid;
+    /* display: inline-grid; */
     height: 420px;
-    width: 20%;
+    /* width: 20%; */
     padding-bottom:20%;
     background-color: plum;
     margin-left: 19%;
     border-radius: 25px;
     /* position: relative */
+  }
+
+  .search{
+    /* height: 2px; */
+    background-color: plum;
+    margin-left: 19%;
+    border-radius: 25px;
   }

@@ -3,7 +3,8 @@ import ListComponent from "./ListComponent";
 import SearchComponent from "./SearchComponent";
 import { userListApi } from "../../../API/Api";
 
-const SidebarComponent = () => {
+const SidebarComponent = (props) => {
+    const { chatClick } = props;
     const [user, setUser] = useState([]);
     const searchByName = (val) => {
         userListApi(val).then((response) => {
@@ -15,9 +16,9 @@ const SidebarComponent = () => {
     }, []);
 
     return(
-        <div>
+        <div style={{display:'inline-grid'}}>
             <SearchComponent onChange={searchByName}/>
-            <ListComponent list={user}/>
+            <ListComponent list={user} onChatClick={(name) => chatClick(name)}/>
         </div>
     )
 }

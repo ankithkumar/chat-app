@@ -1,5 +1,6 @@
 .chatboxz {
     /* display: inline-block; */
+    top: 88px;
     display: inline-grid;
     height: 10vh;
     width: 40%;
