@@ -3,5 +3,6 @@ module.exports = {
     success: 'success',
     no_user: 'no_user',
     unAuthorized: 'unAuthorized',
-    user_exists: 'user_exists'
+    user_exists: 'user_exists',
+    api_fail: 'api_fail'
 }

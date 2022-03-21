@@ -8,7 +8,7 @@ const ChatListComponent = (props) => {
     const { name } = props;
     const [chats, setChats] = useState([]);
 
-    const chatBetween = () => {
+    const fetchChatBetween = () => {
         const currentUser = store.get('name');
         chatBetweenList(currentUser, name || currentUser)
             .then(res => {
@@ -23,14 +23,14 @@ const ChatListComponent = (props) => {
         postApi('sendmessage', body)
             .then((res => {
                 if (res.msg === 'success') {
-                    chatBetween(); 
+                    fetchChatBetween(); 
                 }
             }))
     }
 
     useEffect(() => {
         console.log(name);
-        chatBetween();
+        fetchChatBetween();
     },[name]);
 
     const handleMsgs = (msg) => {

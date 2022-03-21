@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 const db_conn = require('./db_conn/index');
 const resMsg = require('./const');
+const { api_fail } = require('./const');
 var corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
@@ -52,11 +53,21 @@ function isSessionValid(req, res) {
   })
   return false;
 }
+
+function handleApiFail(res, response) {
+  if (res === api_fail) {
+    res.send({
+      msg: resMsg.api_fail
+    })
+  }
+}
+
 app.get('/checkUserName', async function (req, res, next) {
   if (!isSessionValid(req, res)) {
     return;
   }
   const isUserNameDuplicate = await db_conn.user.isUserNameDuplicate({name: req.query.username});
+  handleApiFail(res, isUserNameDuplicate);
   if (isUserNameDuplicate) {
     res.send({
       msg: resMsg.duplicate_user
@@ -82,6 +93,7 @@ app.post('/login', async function (req, res, next) {
     pwd: req.body.pwd
   }
   const users = await db_conn.user.getUser(user);
+  handleApiFail(res, users);
   if (users.length > 0) {
     session.email = req.body.email;
     res.send({
@@ -102,6 +114,7 @@ app.post('/signup', async function (req, res, next) {
     pwd: req.body.pwd
   }
   const users = await db_conn.user.getUser(user);
+  handleApiFail(res, users);
   if (users.length > 0) {
     res.json({
       msg: resMsg.user_exists
@@ -119,6 +132,7 @@ app.get('/userlist', async function (req, res, next) {
     return;
   }
   const userList = await db_conn.user.getUserList(req.query.search);
+  handleApiFail(res, userList);
   res.send({
     list: userList
   });
@@ -129,6 +143,7 @@ app.get('/chatuserlist', async function (req, res, next) {
     return;
   }
   const userList = await db_conn.user.getChatUserList(req.query.search);
+  handleApiFail(res, userList);
   res.send({
     list: userList
   });
@@ -144,7 +159,8 @@ app.post('/sendmessage', async function(req, res, next) {
     msg: req.body.msg,
     ts: Date.now()
   }
-  await db_conn.chat.sendMessage(chat);
+  const ack = await db_conn.chat.sendMessage(chat);
+  handleApiFail(res, ack);
   res.send({
     msg: 'success'
   })
@@ -154,6 +170,7 @@ app.get('/getchats', async function (req, res, next) {
     return;
   }
   const chats = await db_conn.chat.getMessageBetWeen(req.query.sender, req.query.receiver);
+  handleApiFail(res, chats);
   res.send({
     chats
   });
