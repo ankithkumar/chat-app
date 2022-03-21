@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../../App.css';
 import '../../Css/chatwindow.css';
 import SidebarComponent from './Sidebar/SidebarComponent';
-import ChatList from './ChatList/ChatList';
+import ChatListComponent from './ChatList/ChatList';
 
 const ChatWindow = () => {
     const [name, setName] = useState('');
@@ -20,7 +20,7 @@ const ChatWindow = () => {
             <div>
                 <SidebarComponent chatClick={(name) => handleOnChatClick(name)}/>
                 <div className="App chatboxz">
-                    <ChatList name={name}/>
+                    <ChatListComponent name={name}/>
                 </div>
             </div>
         </div>

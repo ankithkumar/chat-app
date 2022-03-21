@@ -1,17 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import {chatBetweenList} from "../../../API/Api";
+import Avatar from '@mui/material/Avatar';
+import store from "../../../Storage/Store";
+import '../../../Css/displayMsgs.css';
 
 const DisplayMsgs = (props) => {
     console.log('porppss', props);
-    const { msgs, name } = props;
-    useEffect(() => {
-        console.log(name);
-    },[name])
-    debugger;
+    const { name, chats } = props;
+    
     return(
-        <div>
-            {msgs && name && msgs.length > 0 && msgs.map((chat) => {
+        <div className="chat-container">
+            {chats.length > 0 && chats.map((chat) => {
                 return(
-                    <div>{chat} <span>{name}</span></div>
+                    <div key={chat._id}>
+                        <Avatar alt={chat.sender} src="/static/images/avatar/2.jpg" />
+                        <span>{chat.msg}</span>
+                    </div>
                 )
             })}
         </div>

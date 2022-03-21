@@ -4,7 +4,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
-import {apiResponse} from '../../API/Api';
+import {postApi} from '../../API/Api';
+import store from "../../Storage/Store";
 // import SignUpComponent from "./SignUpComponent";
 import Button from '@material-ui/core/Button';
 import { useHistory } from "react-router-dom";
@@ -28,16 +29,19 @@ const LoginComponent = (props) => {
     const classes = useStyles();
     // debugger;
     const history = useHistory();
-    const [email, setEmail] = useState('');
-    const [pwd, setPwd] = useState('');
+    const [email, setEmail] = useState('ankith@123.com');
+    const [pwd, setPwd] = useState('abc@1222');
     const [apiRes, setApiRes] = useState(false);
     console.log(props);
     const login = () => {
         const body = { email, pwd }
 
-        apiResponse(body, 'http://localhost/login').then((response) => {
+        postApi('login', body).then((response) => {
             // debugger;
             if (response.msg === 'success') {
+                console.log(response.user);
+                store.set("name",response.user.name);
+                // debugger;
                 setApiRes(true);
                 history.push('/chat');
             }
@@ -64,7 +68,8 @@ const LoginComponent = (props) => {
                     </Button>
                     <br/>
                     <div>Don't Have account? <Link to="/signup">Signup</Link></div>
-                </Typography>
+          
+              </Typography>
             </Container>
     </React.Fragment>
         </div>

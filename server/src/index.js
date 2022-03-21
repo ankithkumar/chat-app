@@ -42,6 +42,7 @@ app.get('/', function(req, res, next) {
 });
 
 function isSessionValid(req, res) {
+  return true;
   session=req.session;
   if (session.email) {
     return true;
@@ -80,11 +81,12 @@ app.post('/login', async function (req, res, next) {
     email: req.body.email,
     pwd: req.body.pwd
   }
-  const isUserPresent = await db_conn.user.isUserPresent(user);
-  if (isUserPresent) {
+  const users = await db_conn.user.getUser(user);
+  if (users.length > 0) {
     session.email = req.body.email;
     res.send({
-      msg: resMsg.success
+      msg: resMsg.success,
+      user: users[0]
     });
   } else {
     res.send({
@@ -99,8 +101,8 @@ app.post('/signup', async function (req, res, next) {
     email: req.body.email,
     pwd: req.body.pwd
   }
-  const isUserPresent = await db_conn.user.isUserPresent(user);
-  if (isUserPresent) {
+  const users = await db_conn.user.getUser(user);
+  if (users.length > 0) {
     res.json({
       msg: resMsg.user_exists
     });

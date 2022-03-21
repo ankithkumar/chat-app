@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import {apiResponse} from '../../API/Api';
+import {postApi} from '../../API/Api';
 import { useHistory } from "react-router-dom";
 
 import {
@@ -35,7 +35,7 @@ const SignUpComponent = (props) => {
     const signUp = () => {
         const body = { name, email, pwd }
 
-        apiResponse(body, 'http://localhost/signup').then((response) => {
+        postApi('signup', body).then((response) => {
             // debugger;
             if (response.msg === 'success') {
                 setApiRes(true);

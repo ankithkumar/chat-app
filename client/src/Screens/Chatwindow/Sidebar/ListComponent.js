@@ -15,7 +15,7 @@ const ListComponent = (props) => {
         <div className="listBox">
             {list.length > 0 && list.map((name) => (          
             <div>
-            <ListItem alignItems="flex-start" onClick={() => onChatClick(name)}>
+            <ListItem key={name} alignItems="flex-start" onClick={() => onChatClick(name)}>
                 <ListItemAvatar>
                     <Avatar alt={name} src="/static/images/avatar/2.jpg" />
                 </ListItemAvatar>

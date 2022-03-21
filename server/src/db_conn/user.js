@@ -17,13 +17,13 @@ async function isUserNameDuplicate(userObj) {
     return res.length !== 0;
 }
 
-async function isUserPresent(userObj) {
+async function getUser(userObj) {
     await connection.connect();
     const client = connection.getMongoClient();
     const res = await client.db("chatApp").collection("user").find({email: userObj.email, pwd: userObj.pwd}).toArray();
     console.log('length ', res.length);
     await connection.close();
-    return res.length !== 0;
+    return res;
 }
 
 function filterBySearchKey(res, searchKey) {
@@ -54,7 +54,7 @@ async function getChatUserList(username, searchKey) {
 
 module.exports = {
     addUser,
-    isUserPresent,
+    getUser,
     isUserNameDuplicate,
     getUserList
 };
